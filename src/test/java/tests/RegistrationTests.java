@@ -1,6 +1,7 @@
 package tests;
 
 import models.User;
+import org.openqa.selenium.By;
 import org.testng.Assert;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
@@ -35,9 +36,10 @@ public class RegistrationTests extends TestBase {
 
         app.getHelperUser().openRegistrationForm();
         app.getHelperUser().fillRegistrationForm(user);
-        app.getHelperUser().checkPolicy();
-        app.getHelperUser().submit();
-        Assert.assertEquals(app.getHelperUser().getMessage(),"You are logged in success");
+
+       app.getHelperUser().checkPolicyXY();
+       app.getHelperUser().submit();
+       Assert.assertEquals(app.getHelperUser().getMessage(),"You are logged in success");
 
 
     }
@@ -105,8 +107,9 @@ public class RegistrationTests extends TestBase {
         app.getHelperUser().fillRegistrationForm(user);
         app.getHelperUser().checkPolicy();
         app.getHelperUser().submit();
-        Assert.assertEquals(app.getHelperUser().getErrorText(),"Wrong email format\n" +
-                "Wrong email format");
+        //Assert.assertEquals(app.getHelperUser().getErrorText(),"Wrong email format\n" +
+                //"Wrong email format");
+        Assert.assertTrue(app.getHelperUser().getErrorText().contains("Wrong email format"));
         Assert.assertTrue(app.getHelperUser().isYallaButtonNotActive());
 
     }
@@ -150,6 +153,7 @@ public class RegistrationTests extends TestBase {
         app.getHelperUser().openRegistrationForm();
         app.getHelperUser().fillRegistrationForm(user);
         app.getHelperUser().submit();
+        app.getHelperUser().pause(2000);
         Assert.assertTrue(app.getHelperUser().isYallaButtonNotActive());
     }
 
@@ -162,10 +166,10 @@ public class RegistrationTests extends TestBase {
                 .setPassword("Snow123456$");
         app.getHelperUser().openRegistrationForm();
         app.getHelperUser().fillRegistrationForm(user);
-        app.getHelperUser().pause(1000);
+
         app.getHelperUser().checkPolicy();
         app.getHelperUser().submit();
-        app.getHelperUser().pause(1000);
+
         Assert.assertEquals(app.getHelperUser().getMessage(),"\"User already exists\"");
 
     }

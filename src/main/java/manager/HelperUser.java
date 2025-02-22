@@ -1,10 +1,10 @@
 package manager;
 
 import models.User;
-import org.openqa.selenium.By;
-import org.openqa.selenium.JavascriptExecutor;
-import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
+import org.openqa.selenium.*;
+import org.openqa.selenium.interactions.Actions;
+
+import javax.swing.*;
 
 public class HelperUser extends HelperBase {
 
@@ -74,12 +74,39 @@ public class HelperUser extends HelperBase {
     }
 
     public void checkPolicy() {
-        //  click(By.id("terms-of-use"));
-        //click(By.cssSelector("label[for='terms-of-use']"));
 
-        //variant 2
+        if (!wd.findElement(By.id("terms-of-use")).isSelected()) {
+            //  click(By.id("terms-of-use"));
+            //click(By.cssSelector("label[for='terms-of-use']"));
 
-        JavascriptExecutor js = (JavascriptExecutor) wd;
-        js.executeScript("document.querySelector('#terms-of-use').click();");
+            //variant 2
+
+            JavascriptExecutor js = (JavascriptExecutor) wd;
+            js.executeScript("document.querySelector('#terms-of-use').click();");
+        }
+    }
+
+
+
+    public void checkPolicyXY() {
+       WebElement label =wd.findElement(By.cssSelector("label[for='terms-of-use']"));
+       Rectangle rectangle = label.getRect();
+       int w = rectangle.getWidth();
+       int xOffset = -w/2;
+
+       //Dimension size =wd.manage().window().getSize();
+
+       Actions actions = new Actions(wd);
+       actions.moveToElement(label,xOffset,0).click().release().perform();
+
+
+
+    }
+
+    public void login(User user) {
+        openLoginForm();
+        fillLoginForm(user);
+        submit();
+        clickOkButton();
     }
 }
