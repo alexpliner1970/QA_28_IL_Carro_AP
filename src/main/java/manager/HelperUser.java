@@ -28,17 +28,9 @@ public class HelperUser extends HelperBase {
         type(By.id("password"), user.getPassword());
     }
 
-    public void submit() {
-        click(By.xpath("//button[@type='submit']"));
-    }
 
-    public String getMessage() {
-//        WebElement element = wd.findElement(By.cssSelector(".dialog-container>h2"));
-//        String text = element.getText();
-//        return text;
-        //pause(2000);
-        return wd.findElement(By.cssSelector(".dialog-container>h2")).getText();
-    }
+
+
 
     public void clickOkButton() {
         if (isElementPresent(By.xpath("//button[text()='Ok']")))
@@ -87,19 +79,16 @@ public class HelperUser extends HelperBase {
     }
 
 
-
     public void checkPolicyXY() {
-       WebElement label =wd.findElement(By.cssSelector("label[for='terms-of-use']"));
-       Rectangle rectangle = label.getRect();
-       int w = rectangle.getWidth();
-       int xOffset = -w/2;
+        WebElement label =wd.findElement(By.cssSelector("label[for='terms-of-use']"));
+        Rectangle rectangle = label.getRect();
+        int w = rectangle.getWidth();
+        int xOffset = -w/2;
 
-       //Dimension size =wd.manage().window().getSize();
+        //Dimension size =wd.manage().window().getSize();
 
-       Actions actions = new Actions(wd);
-       actions.moveToElement(label,xOffset,0).click().release().perform();
-
-
+        Actions actions = new Actions(wd);
+        actions.moveToElement(label,xOffset,0).click().release().perform();
 
     }
 
