@@ -8,7 +8,6 @@ import org.openqa.selenium.support.ui.Select;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
-import java.util.List;
 
 public class HelperCar extends HelperBase{
     public HelperCar(WebDriver wd) {
@@ -55,6 +54,7 @@ public class HelperCar extends HelperBase{
 
     public void searchCurrentMonth(String city, String dateFrom, String dateTo) {
         typeCity(city);
+        clearTextBox(By.id("dates"));
         click(By.id("dates"));
         String[]from=dateFrom.split("/");
         String locatorFrom= "//div[text()= ' "+from[1]+" ']";
@@ -70,6 +70,7 @@ public class HelperCar extends HelperBase{
     }
 
     private void typeCity(String city) {
+        clearTextBox(By.id("city"));
         type(By.id("city"),city);
         click(By.cssSelector("div.pac-item"));
 
@@ -78,6 +79,7 @@ public class HelperCar extends HelperBase{
 
     public void searchCurrentYear(String city, String dateFrom, String dateTo) {
         typeCity(city);
+        clearTextBox(By.id("dates"));
         click(By.id("dates"));
         //"4/27/2025","6/28/2025"
 
@@ -118,21 +120,51 @@ public class HelperCar extends HelperBase{
 
     public void searchAnyPeriod(String city, String dateFrom, String dateTo) {
         typeCity(city);
+        clearTextBox(By.id("dates"));
         click(By.id("dates"));
-        String v= wd.findElement(By.cssSelector("button[aria-label='Choose month and year'] span[class='mat-button-wrapper'")).getText();
-        //System.out.println(v);
-        String[]from=dateFrom.split("/");
 
-        if(!(from[2].contains(v.split(" ")[1]))){
-            click(By.cssSelector("button[aria-label='Choose month and year'] span[class='mat-button-wrapper'"));
-            List<WebElement> years =wd.findElements(By.cssSelector("div.mat-calendar-body-cell-content"));
-            for (WebElement element:years){
-                if(element.getText().equals(from[2]))
-                    element.click();
-            }
+        LocalDate now= LocalDate.now();
+        int year= now.getYear();
+        int month= now.getMonthValue();
+        int day=now.getDayOfMonth();
 
-        }
-            searchCurrentYear(city,dateFrom,dateTo);
+        LocalDate from =LocalDate.parse(dateFrom, DateTimeFormatter.ofPattern("M/d/yyyy"));
+        LocalDate to =LocalDate.parse(dateTo, DateTimeFormatter.ofPattern("M/d/yyyy"));
+
+        int diffYear, diffMonth;
+
+        diffYear=from.getYear()-year;
+        if(diffYear==0) {
+            diffMonth = from.getMonthValue() - month;
+        }else diffMonth=12-month+from.getMonthValue();
+        clickNextMonthBtn(diffMonth);
+        String locator = String.format("//div[text()= ' %s ']",from.getDayOfMonth());
+        click(By.xpath(locator));
+
+
+        diffYear=to.getYear()-from.getYear();
+        if (diffYear==0) {
+            diffMonth = to.getMonthValue() - from.getMonthValue();
+        }else
+            diffMonth=12-from.getMonthValue()+to.getMonthValue();
+        clickNextMonthBtn(diffMonth);
+        locator = String.format("//div[text()= ' %s ']",to.getDayOfMonth());
+        click(By.xpath(locator));
+    }
+    public void navigateByLogo() {
+        click(By.cssSelector("a.logo"));
+    }
+
+    public void fillLoginFormWrongPeriod(String city, String period) {
+        typeCity(city);
+        clearTextBox(By.id("dates"));
+        WebElement date=wd.findElement(By.id("dates"));
+        date.sendKeys(period);
+        date.click();
+        pause(1500);
+    }
+    public String errorText() {
+        return wd.findElement(By.cssSelector("div[class='ng-star-inserted']")).getText();
     }
 }
 
