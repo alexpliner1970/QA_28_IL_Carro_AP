@@ -161,10 +161,9 @@ public class HelperCar extends HelperBase{
         WebElement date=wd.findElement(By.id("dates"));
         date.sendKeys(period);
         date.click();
-        pause(1500);
+        click(By.cssSelector("div.cdk-overlay-backdrop"));
+
     }
-    public String errorText() {
-        return wd.findElement(By.cssSelector("div[class='ng-star-inserted']")).getText();
-    }
+
 }
 

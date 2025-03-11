@@ -1,0 +1,3 @@
+19:08:22.817 INFO  manager.ApplicationManager - All tests rus in Chrom
+19:08:24.057 INFO  manager.ApplicationManager - The link --->https://ilcarro.web.app/search
+19:08:24.090 INFO  tests.TestBase - Name of method--->registrationSuccess

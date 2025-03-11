@@ -1,0 +1,6 @@
+18:51:55.599 INFO  manager.ApplicationManager - All tests rus in Chrom
+18:51:56.718 INFO  manager.ApplicationManager - The link --->https://ilcarro.web.app/search
+18:51:56.741 INFO  tests.TestBase - Name of method--->searchAnyPeriodSuccess
+18:52:00.712 INFO  tests.TestBase - Name of method--->searchCurrentMonthSuccess
+18:52:17.850 INFO  tests.TestBase - Name of method--->searchCurrentYearSuccess
+18:52:22.153 INFO  tests.TestBase - Name of method--->searchWithWrongPeriod

@@ -35,7 +35,7 @@ public class SearchCarTests extends TestBase{
     @Test
     public void searchWithWrongPeriod(){
          app.getHelperCar().fillLoginFormWrongPeriod("Rehovot","3/10/2028 - 3/21/2029");
-         Assert.assertEquals(app.getHelperCar().errorText(),"You can't pick date after one year");
+         Assert.assertTrue(app.getHelperCar().getErrorText().contains("You can't pick date after one year"));
          Assert.assertTrue(app.getHelperCar().isYallaButtonNotActive());
 
     }

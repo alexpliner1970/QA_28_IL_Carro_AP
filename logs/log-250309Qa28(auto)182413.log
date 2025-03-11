@@ -1,0 +1,3 @@
+18:24:15.610 INFO  manager.ApplicationManager - All tests rus in Chrom
+18:24:16.956 INFO  manager.ApplicationManager - The link --->https://ilcarro.web.app/
+18:24:17.002 INFO  tests.TestBase - Name of method--->searchWithWrongPeriod

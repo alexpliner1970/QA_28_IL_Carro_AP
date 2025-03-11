@@ -1,5 +1,6 @@
 package tests;
 
+import manager.DataProviderUser;
 import models.User;
 import org.openqa.selenium.By;
 import org.testng.Assert;
@@ -171,6 +172,20 @@ public class RegistrationTests extends TestBase {
         app.getHelperUser().submit();
 
         Assert.assertEquals(app.getHelperUser().getMessage(),"\"User already exists\"");
+
+    }
+
+    @Test(dataProvider = "registrationFile",dataProviderClass = DataProviderUser.class)
+    public void registrationSuccessAllFieldsCSV(User user) {
+
+
+        app.getHelperUser().openRegistrationForm();
+        app.getHelperUser().fillRegistrationForm(user);
+
+        app.getHelperUser().checkPolicyXY();
+        app.getHelperUser().submit();
+        Assert.assertEquals(app.getHelperUser().getMessage(),"You are logged in success");
+
 
     }
 

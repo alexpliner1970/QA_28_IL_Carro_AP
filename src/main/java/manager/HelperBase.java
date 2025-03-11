@@ -87,4 +87,7 @@ public class HelperBase {
 
         el.sendKeys(Keys.DELETE);
     }
+    public String getErrorText() {
+        return wd.findElement(By.cssSelector("div.error")).getText();
+    }
 }

@@ -1,0 +1,5 @@
+19:12:23.450 INFO  manager.ApplicationManager - All tests rus in Chrom
+19:12:24.599 INFO  manager.ApplicationManager - The link --->https://ilcarro.web.app/search
+19:12:24.633 INFO  tests.TestBase - Name of method--->registrationSuccessAllFieldsCSV
+19:12:33.185 INFO  tests.TestBase - Name of method--->registrationSuccessAllFieldsCSV
+19:12:36.422 INFO  tests.TestBase - Name of method--->registrationSuccessAllFieldsCSV
